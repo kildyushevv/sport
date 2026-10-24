@@ -11,3 +11,7 @@ build/
 # SwiftPM
 .build/
 .swiftpm/
+
+# Python
+__pycache__/
+*.pyc

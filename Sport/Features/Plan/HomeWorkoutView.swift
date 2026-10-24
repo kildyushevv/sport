@@ -142,7 +142,23 @@ struct HomeWorkoutView: View {
             .background(isWork ? color : Color.white.opacity(0.14), in: Capsule())
     }
 
+    @ViewBuilder
     private var exerciseCard: some View {
+        if let exercise = currentExercise, let motion = ExerciseAnimations.motions[exercise.id] {
+            ExerciseAnimationCard(
+                motion: motion,
+                eyebrow: isWork ? exercise.group.rawValue : "Дальше",
+                title: exercise.name,
+                height: 240,
+                isPlaying: engine.isRunning
+            )
+            .id(exercise.id)
+        } else {
+            photoCard
+        }
+    }
+
+    private var photoCard: some View {
         PhotoCard(
             url: currentExercise?.photoURL,
             symbol: currentExercise?.group.symbol ?? "figure.strengthtraining.traditional",

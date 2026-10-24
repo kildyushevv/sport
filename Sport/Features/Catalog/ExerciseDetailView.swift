@@ -18,6 +18,7 @@ struct ExerciseDetailView: View {
                         .foregroundStyle(Color.white)
                         .fixedSize(horizontal: false, vertical: true)
 
+                    animation
                     facts
                     steps
                     tips
@@ -32,6 +33,16 @@ struct ExerciseDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.hidden, for: .navigationBar)
         .toolbarColorScheme(.dark, for: .navigationBar)
+    }
+
+    @ViewBuilder
+    private var animation: some View {
+        if let motion = ExerciseAnimations.motions[exercise.id] {
+            VStack(alignment: .leading, spacing: 14) {
+                SectionHeader(title: "Как выполнять")
+                ExerciseAnimationCard(motion: motion, height: 280)
+            }
+        }
     }
 
     private var hero: some View {
