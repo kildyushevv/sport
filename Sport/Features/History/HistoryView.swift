@@ -115,6 +115,14 @@ struct HistoryView: View {
 private struct SessionRow: View {
     let session: WorkoutSession
 
+    private var detailText: String {
+        let duration = Format.duration(minutes: session.durationMinutes)
+        if session.location == .home {
+            return "\(duration) • \(session.calories) ккал"
+        }
+        return "\(duration) • \(Format.number(Analytics.volume(of: session))) кг"
+    }
+
     var body: some View {
         HStack(spacing: 14) {
             VStack(spacing: 0) {
@@ -129,13 +137,16 @@ private struct SessionRow: View {
             .frame(width: 44)
 
             VStack(alignment: .leading, spacing: 4) {
+                if session.location == .home {
+                    Eyebrow(text: "Дома")
+                }
                 Text(session.title.uppercased())
                     .font(.sportDisplay(18))
                     .tracking(-0.3)
                     .foregroundStyle(Color.white)
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
-                Text("\(Format.duration(minutes: session.durationMinutes)) • \(Format.number(Analytics.volume(of: session))) кг")
+                Text(detailText)
                     .font(.system(size: 13, weight: .medium))
                     .foregroundStyle(Color.sportMuted)
                     .lineLimit(1)

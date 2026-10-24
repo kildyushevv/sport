@@ -8,6 +8,7 @@ final class AppStore {
     private(set) var plan: [WorkoutDay]
     private(set) var history: [WorkoutSession]
     let bodyWeight: [BodyWeightEntry]
+    let homePrograms: [HomeProgram]
 
     private let exercisesByID: [String: Exercise]
 
@@ -15,12 +16,14 @@ final class AppStore {
         exercises: [Exercise] = DemoData.exercises,
         plan: [WorkoutDay] = DemoData.weekPlan,
         history: [WorkoutSession] = DemoData.makeHistory(),
-        bodyWeight: [BodyWeightEntry] = DemoData.makeBodyWeight()
+        bodyWeight: [BodyWeightEntry] = DemoData.makeBodyWeight(),
+        homePrograms: [HomeProgram] = DemoData.homePrograms
     ) {
         self.exercises = exercises
         self.plan = plan
         self.history = history
         self.bodyWeight = bodyWeight
+        self.homePrograms = homePrograms
         self.exercisesByID = Dictionary(uniqueKeysWithValues: exercises.map { ($0.id, $0) })
     }
 
@@ -68,6 +71,18 @@ final class AppStore {
 
     func isInPlan(_ exercise: Exercise, dayIndex: Int) -> Bool {
         plan.first(where: { $0.weekdayIndex == dayIndex })?.items.contains { $0.exerciseID == exercise.id } ?? false
+    }
+
+    // MARK: Дома
+
+    /// Программа, рекомендованная на сегодня: ротация по дням недели.
+    func recommendedHomeProgram(now: Date = .now) -> HomeProgram? {
+        guard !homePrograms.isEmpty else { return nil }
+        return homePrograms[Self.todayIndex(now: now) % homePrograms.count]
+    }
+
+    func homeSessions(since date: Date) -> [WorkoutSession] {
+        history.filter { $0.location == .home && $0.date >= date }
     }
 
     // MARK: История

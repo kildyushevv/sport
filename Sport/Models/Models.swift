@@ -81,6 +81,9 @@ struct Exercise: Identifiable, Hashable {
     let tips: [String]
 
     var photoURL: URL? { PhotoCatalog.url(group.photo) }
+
+    /// Можно делать дома без инвентаря: со своим весом или на коврике.
+    var isHomeFriendly: Bool { equipment == "Свой вес" || equipment == "Коврик" }
 }
 
 // MARK: - План
@@ -121,8 +124,15 @@ struct LoggedSet: Hashable {
 struct LoggedExercise: Identifiable, Hashable {
     let exerciseID: String
     let sets: [LoggedSet]
+    /// Если задано, подходы записаны в этой единице (домашние тренировки идут по времени).
+    var measureOverride: Measure? = nil
 
     var id: String { exerciseID }
+}
+
+enum SessionLocation: Hashable {
+    case gym
+    case home
 }
 
 struct WorkoutSession: Identifiable, Hashable {
@@ -134,9 +144,56 @@ struct WorkoutSession: Identifiable, Hashable {
     let calories: Int
     let photo: PhotoCatalog.Key
     let exercises: [LoggedExercise]
+    var location: SessionLocation = .gym
 
     var photoURL: URL? { PhotoCatalog.url(photo) }
     var totalSets: Int { exercises.reduce(0) { $0 + $1.sets.count } }
+}
+
+// MARK: - Домашние программы
+
+/// Круговая интервальная тренировка со своим весом: работа/отдых по времени.
+struct HomeProgram: Identifiable, Hashable {
+    let id: String
+    let title: String
+    let tagline: String
+    let goal: String
+    let level: Difficulty
+    let workSeconds: Int
+    let restSeconds: Int
+    let rounds: Int
+    let roundRestSeconds: Int
+    let exerciseIDs: [String]
+    let photo: PhotoCatalog.Key
+    /// Ориентировочный расход энергии, ккал в минуту.
+    let kcalPerMinute: Double
+    /// Без прыжков и шума — подходит для квартиры.
+    let lowImpact: Bool
+
+    var photoURL: URL? { PhotoCatalog.url(photo) }
+
+    var segments: [TimerSegment] {
+        TimerEngine.circuit(
+            exerciseIDs: exerciseIDs,
+            work: workSeconds,
+            rest: restSeconds,
+            rounds: rounds,
+            roundRest: roundRestSeconds
+        )
+    }
+
+    var durationMinutes: Int {
+        let total = segments.reduce(0) { $0 + $1.duration }
+        return max(1, Int((total / 60).rounded()))
+    }
+
+    var estimatedKcal: Int {
+        Int((Double(durationMinutes) * kcalPerMinute).rounded())
+    }
+
+    var schemeText: String {
+        restSeconds > 0 ? "\(workSeconds) с работа / \(restSeconds) с отдых" : "\(workSeconds) с работа"
+    }
 }
 
 struct BodyWeightEntry: Identifiable, Hashable {

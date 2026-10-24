@@ -96,3 +96,21 @@ struct DifficultyDots: View {
         }
     }
 }
+
+/// Тонкая лаймовая полоса прогресса.
+struct ProgressBar: View {
+    let fraction: Double
+
+    var body: some View {
+        GeometryReader { proxy in
+            ZStack(alignment: .leading) {
+                Capsule().fill(Color.white.opacity(0.1))
+                Capsule()
+                    .fill(Color.sportLime)
+                    .frame(width: proxy.size.width * min(1, max(0, fraction)))
+                    .animation(.easeOut(duration: 0.25), value: fraction)
+            }
+        }
+        .frame(height: 6)
+    }
+}

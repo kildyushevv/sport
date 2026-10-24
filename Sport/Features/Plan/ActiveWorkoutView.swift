@@ -323,23 +323,6 @@ struct ActiveWorkoutView: View {
     }
 }
 
-private struct ProgressBar: View {
-    let fraction: Double
-
-    var body: some View {
-        GeometryReader { proxy in
-            ZStack(alignment: .leading) {
-                Capsule().fill(Color.white.opacity(0.1))
-                Capsule()
-                    .fill(Color.sportLime)
-                    .frame(width: proxy.size.width * min(1, max(0, fraction)))
-                    .animation(.easeOut(duration: 0.25), value: fraction)
-            }
-        }
-        .frame(height: 6)
-    }
-}
-
 /// Строка «Вес — − 82,5 кг +» с шагом 2,5 кг.
 private struct WeightStepper: View {
     @Binding var weight: Double

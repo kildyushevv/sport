@@ -5,10 +5,43 @@ enum Weekday {
     static let short = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"]
 }
 
+enum PlanMode: String, CaseIterable, Hashable {
+    case gym
+    case home
+
+    var title: String {
+        switch self {
+        case .gym: return "Зал"
+        case .home: return "Дома"
+        }
+    }
+}
+
+/// Какая тренировка открыта на весь экран.
+private enum ActiveSession: Identifiable {
+    case gym(WorkoutDay)
+    case home(HomeProgram)
+
+    var id: String {
+        switch self {
+        case .gym(let day): return "gym-\(day.weekdayIndex)"
+        case .home(let program): return "home-\(program.id)"
+        }
+    }
+}
+
 struct PlanView: View {
     @Environment(AppStore.self) private var store
+    @AppStorage("planMode") private var modeRaw = PlanMode.gym.rawValue
     @State private var selectedIndex = AppStore.todayIndex()
-    @State private var activeDay: WorkoutDay?
+    @State private var active: ActiveSession?
+
+    private var mode: Binding<PlanMode> {
+        Binding(
+            get: { PlanMode(rawValue: modeRaw) ?? .gym },
+            set: { modeRaw = $0.rawValue }
+        )
+    }
 
     private let calendar = Calendar.sport
     private var todayIndex: Int { AppStore.todayIndex() }
@@ -30,17 +63,25 @@ struct PlanView: View {
     }
 
     private var plannedCount: Int { store.plan.filter { !$0.isRest }.count }
-    private var doneThisWeek: Int { store.history.filter { $0.date >= weekStart }.count }
+    private var doneThisWeek: Int {
+        store.history.filter { $0.location == .gym && $0.date >= weekStart }.count
+    }
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     ScreenTitle(title: "План", subtitle: Format.dayMonth(.now))
-                    weekStrip
-                    weekProgress
-                    heroCard
-                    weekList
+                    PillPicker(options: PlanMode.allCases, selection: mode) { $0.title }
+
+                    if mode.wrappedValue == .gym {
+                        weekStrip
+                        weekProgress
+                        heroCard
+                        weekList
+                    } else {
+                        HomePlanView { active = .home($0) }
+                    }
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 8)
@@ -49,14 +90,20 @@ struct PlanView: View {
             .sportScreen()
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: WorkoutDay.self) { day in
-                WorkoutDayView(dayIndex: day.weekdayIndex) { activeDay = $0 }
+                WorkoutDayView(dayIndex: day.weekdayIndex) { active = .gym($0) }
+            }
+            .navigationDestination(for: HomeProgram.self) { program in
+                HomeProgramView(program: program) { active = .home($0) }
             }
             .navigationDestination(for: Exercise.self) { exercise in
                 ExerciseDetailView(exercise: exercise)
             }
         }
-        .fullScreenCover(item: $activeDay) { day in
-            ActiveWorkoutView(day: day)
+        .fullScreenCover(item: $active) { session in
+            switch session {
+            case .gym(let day): ActiveWorkoutView(day: day)
+            case .home(let program): HomeWorkoutView(program: program)
+            }
         }
     }
 
@@ -163,7 +210,7 @@ struct PlanView: View {
                 .buttonStyle(.plain)
 
                 Button(isDone ? "ПОВТОРИТЬ ТРЕНИРОВКУ" : "НАЧАТЬ ТРЕНИРОВКУ") {
-                    activeDay = day
+                    active = .gym(day)
                 }
                 .buttonStyle(LimeButtonStyle())
             }

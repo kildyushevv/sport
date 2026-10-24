@@ -122,8 +122,10 @@ struct ProgressTabView: View {
             StatTile(value: Format.number((perWeek / 100).rounded() / 10), label: "тонн в неделю")
             StatTile(
                 value: Format.number(Double(sessionsInPeriod.reduce(0) { $0 + $1.durationMinutes }) / 60),
-                label: "часов в зале"
+                label: "часов тренировок"
             )
+            StatTile(value: Format.number(Double(sessionsInPeriod.reduce(0) { $0 + $1.calories })), label: "ккал за период")
+            StatTile(value: "\(sessionsInPeriod.filter { $0.location == .home }.count)", label: "дома")
         }
     }
 

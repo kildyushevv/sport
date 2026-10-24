@@ -299,6 +299,152 @@ enum DemoData {
                          "Задержитесь, затем смените сторону."],
                  tips: ["Не торопитесь — дышите глубоко.",
                         "Заднее колено можно опустить на пол."]),
+
+        // Дома, без инвентаря
+        exercise("jumping-jacks", "Джампинг джек", .cardio,
+                 secondary: "Плечи, икры, ягодицы", equipment: "Свой вес", .beginner, measure: .seconds,
+                 summary: "Простой прыжковый разогрев, который быстро поднимает пульс.",
+                 steps: ["Встаньте прямо, ноги вместе, руки вдоль корпуса.",
+                         "Прыжком разведите ноги шире плеч и поднимите руки над головой.",
+                         "Прыжком вернитесь в исходное положение и повторяйте в ровном темпе."],
+                 tips: ["Приземляйтесь мягко, на носки, с лёгким сгибом в коленях.",
+                        "Если шумно или больно коленям, замените на шаги в стороны."]),
+        exercise("high-knees", "Бег с высоким подниманием колен", .cardio,
+                 secondary: "Бёдра, пресс, икры", equipment: "Свой вес", .beginner, measure: .seconds,
+                 summary: "Бег на месте, который хорошо разгоняет пульс и включает пресс.",
+                 steps: ["Встаньте прямо и начните бежать на месте.",
+                         "Поднимайте колени до уровня таза, активно работая руками.",
+                         "Держите корпус ровным, дыхание — частое и спокойное."],
+                 tips: ["Опирайтесь на переднюю часть стопы.",
+                        "Колени поднимайте выше, а не быстрее — так нагрузка больше."]),
+        exercise("mountain-climbers", "Скалолаз", .cardio,
+                 secondary: "Пресс, плечи, бёдра", equipment: "Свой вес", .intermediate, measure: .seconds,
+                 summary: "Динамика в упоре лёжа: кардио и пресс одновременно.",
+                 steps: ["Примите упор лёжа на прямых руках, тело — прямая линия.",
+                         "Поочерёдно подтягивайте колени к груди, как будто бежите.",
+                         "Не поднимайте таз выше линии плеч."],
+                 tips: ["Плечи держите над кистями.",
+                        "Для облегчения замедлите темп и ставьте колено мягче."]),
+        exercise("squat-jump", "Прыжки из приседа", .legs,
+                 secondary: "Ягодицы, икры", equipment: "Свой вес", .intermediate, measure: .seconds,
+                 summary: "Взрывное упражнение для ног, сильно разгоняющее пульс.",
+                 steps: ["Присядьте до параллели бёдер с полом, руки перед собой.",
+                         "Выпрыгните вверх, полностью выпрямляясь в воздухе.",
+                         "Мягко приземлитесь в присед и сразу повторите."],
+                 tips: ["Колени идут по линии носков и не заваливаются внутрь.",
+                        "Приземляйтесь мягко, чтобы не бить по суставам."]),
+        exercise("air-squat", "Приседания без веса", .legs,
+                 secondary: "Ягодицы, кор", equipment: "Свой вес", .beginner, measure: .seconds,
+                 summary: "База для ног: техника без веса и без оборудования.",
+                 steps: ["Поставьте ноги на ширину плеч, носки слегка развернуты.",
+                         "Отведите таз назад и вниз, пока бёдра не станут параллельны полу.",
+                         "Встаньте, толкаясь всей стопой."],
+                 tips: ["Спину держите прямой, грудь раскрыта.",
+                        "Руки можно вытягивать вперёд для баланса."]),
+        exercise("reverse-lunge", "Выпады назад", .legs,
+                 secondary: "Ягодицы, кор", equipment: "Свой вес", .beginner, measure: .seconds,
+                 summary: "Щадящий для коленей выпад, который хорошо нагружает ягодицы.",
+                 steps: ["Встаньте прямо, руки на поясе.",
+                         "Сделайте шаг назад и опустите заднее колено почти до пола.",
+                         "Оттолкнитесь передней ногой и вернитесь, меняйте ноги."],
+                 tips: ["Корпус остаётся вертикальным.",
+                        "Переднее колено не выходит далеко за носок."]),
+        exercise("jump-lunge", "Прыжковые выпады", .legs,
+                 secondary: "Ягодицы, икры, кор", equipment: "Свой вес", .advanced, measure: .seconds,
+                 summary: "Мощная плиометрика: ноги, ягодицы и пульс на максимум.",
+                 steps: ["Встаньте в выпад, обе ноги согнуты примерно до 90°.",
+                         "Выпрыгните вверх и поменяйте ноги в воздухе.",
+                         "Приземлитесь сразу в выпад на другую ногу."],
+                 tips: ["Сначала освойте обычные выпады, потом добавляйте прыжок.",
+                        "Руки помогают равновесию — работайте ими как при беге."]),
+        exercise("glute-bridge", "Ягодичный мост", .legs,
+                 secondary: "Бицепс бедра, поясница", equipment: "Свой вес", .beginner, measure: .seconds,
+                 summary: "Безопасное упражнение для ягодиц и задней поверхности бедра.",
+                 steps: ["Лягте на спину, ноги согнуты, стопы у таза.",
+                         "Поднимите таз до прямой линии плечи — колени.",
+                         "Сожмите ягодицы вверху и плавно опуститесь."],
+                 tips: ["Не прогибайте поясницу выше линии корпуса.",
+                        "Надавливайте пятками в пол."]),
+        exercise("skater-jump", "Конькобежец", .cardio,
+                 secondary: "Ягодицы, бёдра, равновесие", equipment: "Свой вес", .intermediate, measure: .seconds,
+                 summary: "Боковые прыжки с ноги на ногу, как у конькобежца.",
+                 steps: ["Встаньте на одну ногу, вторую отведите назад.",
+                         "Оттолкнитесь в сторону и приземлитесь на другую ногу.",
+                         "Руки маятником помогают держать равновесие."],
+                 tips: ["Приземляйтесь на слегка согнутую ногу.",
+                        "Чем шире прыжок, тем сильнее нагрузка."]),
+        exercise("bicycle-crunch", "Велосипед", .core,
+                 secondary: "Косые мышцы живота", equipment: "Коврик", .beginner, measure: .seconds,
+                 summary: "Скручивания с вращением: прямые и косые мышцы пресса.",
+                 steps: ["Лягте на спину, руки у головы, ноги подняты и согнуты.",
+                         "Тяните локоть к противоположному колену, выпрямляя вторую ногу.",
+                         "Меняйте стороны плавно, как будто крутите педали."],
+                 tips: ["Не тяните шею руками — работает корпус.",
+                        "Поясница прижата к полу."]),
+        exercise("shadow-boxing", "Бой с тенью", .cardio,
+                 secondary: "Плечи, кор, ноги", equipment: "Свой вес", .beginner, measure: .seconds,
+                 summary: "Тихое кардио с ударами руками и подвижными ногами.",
+                 steps: ["Встаньте в стойку, ноги чуть шире плеч, колени мягкие.",
+                         "Наносите прямые и боковые удары, поворачивая корпус.",
+                         "Держите ноги подвижными, постоянно слегка пружиньте."],
+                 tips: ["Вкладывайте в удар поворот корпуса, а не только руку.",
+                        "Руки возвращайте к лицу после каждого удара."]),
+        exercise("inchworm", "Гусеница", .core,
+                 secondary: "Плечи, бицепс бедра, спина", equipment: "Свой вес", .intermediate, measure: .seconds,
+                 summary: "Растяжка и силовая работа в одном движении.",
+                 steps: ["Встаньте прямо и наклонитесь, поставив ладони на пол.",
+                         "Пройдите руками вперёд до упора лёжа.",
+                         "Шагами подтяните ноги к рукам и встаньте."],
+                 tips: ["Колени можно слегка согнуть, если не хватает гибкости.",
+                        "В упоре напрягите пресс и ягодицы."]),
+        exercise("dead-bug", "Мёртвый жук", .core,
+                 secondary: "Поясница, сгибатели бедра", equipment: "Коврик", .beginner, measure: .seconds,
+                 summary: "Безопасная работа пресса и контроль поясницы.",
+                 steps: ["Лягте на спину, руки подняты вверх, ноги согнуты в коленях на 90°.",
+                         "Одновременно опустите противоположные руку и ногу к полу.",
+                         "Вернитесь и повторите на другую сторону."],
+                 tips: ["Поясница не отрывается от пола ни на секунду.",
+                        "Двигайтесь медленно — так нагрузка выше."]),
+        exercise("side-plank", "Боковая планка", .core,
+                 secondary: "Косые мышцы, ягодицы, плечи", equipment: "Коврик", .intermediate, measure: .seconds,
+                 summary: "Статика для боковых мышц корпуса.",
+                 steps: ["Лягте на бок и обопритесь на предплечье, локоть под плечом.",
+                         "Поднимите таз так, чтобы тело стало прямой линией.",
+                         "Держите положение и смените сторону."],
+                 tips: ["Не заваливайте таз вперёд или назад.",
+                        "Новичкам проще с опорой на колено."]),
+        exercise("step-jack", "Шаги в стороны с махом рук", .cardio,
+                 secondary: "Плечи, ягодицы, бёдра", equipment: "Свой вес", .beginner, measure: .seconds,
+                 summary: "Тихая версия джампинг джека: без прыжков и шума.",
+                 steps: ["Встаньте прямо, ноги вместе.",
+                         "Шагните одной ногой в сторону и поднимите руки над головой.",
+                         "Приставьте ногу, опустите руки и повторите в другую сторону."],
+                 tips: ["Поднимайте руки полностью — так нагрузка выше.",
+                        "Подойдёт для квартиры и вечерних занятий."]),
+        exercise("superman", "Суперман", .back,
+                 secondary: "Ягодицы, поясница, задние дельты", equipment: "Коврик", .beginner, measure: .seconds,
+                 summary: "Укрепляет разгибатели спины без оборудования.",
+                 steps: ["Лягте на живот, руки вытянуты вперёд.",
+                         "Одновременно поднимите руки, грудь и ноги от пола.",
+                         "Задержитесь на секунду и плавно опуститесь."],
+                 tips: ["Шею держите нейтрально, смотрите в пол.",
+                        "Поднимайтесь не выше, чем комфортно для поясницы."]),
+        exercise("diamond-push-up", "Узкие отжимания", .arms,
+                 secondary: "Грудь, передние дельты", equipment: "Свой вес", .intermediate, measure: .seconds,
+                 summary: "Отжимания с узкой постановкой рук — акцент на трицепс.",
+                 steps: ["Упор лёжа, кисти под грудью, большие и указательные пальцы образуют ромб.",
+                         "Опуститесь, прижимая локти к корпусу.",
+                         "Выжмите себя вверх до прямых рук."],
+                 tips: ["Новичкам проще с колен.",
+                        "Тело держите прямой линией, без прогиба."]),
+        exercise("pike-push-up", "Отжимания «горкой»", .shoulders,
+                 secondary: "Трицепс, верх груди", equipment: "Свой вес", .intermediate, measure: .seconds,
+                 summary: "Отжимания с поднятым тазом, похожие на жим над головой.",
+                 steps: ["Встаньте в упор, подняв таз вверх, тело — треугольник.",
+                         "Согните руки, опуская голову к полу между кистями.",
+                         "Выжмите себя обратно, не меняя положения таза."],
+                 tips: ["Чем ближе стопы к рукам, тем выше нагрузка на плечи.",
+                        "Двигайтесь плавно, без раскачки."]),
     ]
 
     static let exercisesByID: [String: Exercise] = Dictionary(
@@ -357,13 +503,67 @@ enum DemoData {
         WorkoutDay(weekdayIndex: 6, title: "Отдых", focus: "Восстановление", durationMinutes: 0, photo: .mobility, items: []),
     ]
 
+    // MARK: Домашние программы
+
+    static let homePrograms: [HomeProgram] = [
+        HomeProgram(
+            id: "fat-burn", title: "Сжигатель жира", tagline: "Интервальный круг на весь организм",
+            goal: "Жиросжигание", level: .intermediate,
+            workSeconds: 40, restSeconds: 20, rounds: 3, roundRestSeconds: 45,
+            exerciseIDs: ["jumping-jacks", "squat-jump", "mountain-climbers", "push-up",
+                          "skater-jump", "burpee", "high-knees", "bicycle-crunch"],
+            photo: .cardio, kcalPerMinute: 9.5, lowImpact: false
+        ),
+        HomeProgram(
+            id: "starter", title: "Старт с нуля", tagline: "Мягкий вход без ударной нагрузки",
+            goal: "Для новичков", level: .beginner,
+            workSeconds: 30, restSeconds: 30, rounds: 3, roundRestSeconds: 45,
+            exerciseIDs: ["step-jack", "air-squat", "reverse-lunge", "glute-bridge", "dead-bug", "superman"],
+            photo: .hero, kcalPerMinute: 6.5, lowImpact: true
+        ),
+        HomeProgram(
+            id: "tabata", title: "Табата-экспресс", tagline: "Короткий максимум, когда мало времени",
+            goal: "Жиросжигание", level: .intermediate,
+            workSeconds: 20, restSeconds: 10, rounds: 4, roundRestSeconds: 30,
+            exerciseIDs: ["squat-jump", "push-up", "mountain-climbers", "high-knees"],
+            photo: .cardio, kcalPerMinute: 11, lowImpact: false
+        ),
+        HomeProgram(
+            id: "quiet", title: "Без прыжков", tagline: "Тихая тренировка для квартиры",
+            goal: "Кардио", level: .beginner,
+            workSeconds: 40, restSeconds: 20, rounds: 3, roundRestSeconds: 45,
+            exerciseIDs: ["step-jack", "shadow-boxing", "reverse-lunge", "inchworm", "bicycle-crunch", "glute-bridge"],
+            photo: .mobility, kcalPerMinute: 7, lowImpact: true
+        ),
+        HomeProgram(
+            id: "core", title: "Пресс и кор", tagline: "Плоский живот и сильный корпус",
+            goal: "Пресс", level: .intermediate,
+            workSeconds: 40, restSeconds: 15, rounds: 3, roundRestSeconds: 40,
+            exerciseIDs: ["plank", "bicycle-crunch", "dead-bug", "side-plank", "mountain-climbers", "superman"],
+            photo: .core, kcalPerMinute: 6, lowImpact: true
+        ),
+        HomeProgram(
+            id: "full-body", title: "Всё тело", tagline: "Тяжёлый круг для подготовленных",
+            goal: "Жиросжигание", level: .advanced,
+            workSeconds: 45, restSeconds: 15, rounds: 3, roundRestSeconds: 60,
+            exerciseIDs: ["burpee", "jump-lunge", "diamond-push-up", "skater-jump",
+                          "pike-push-up", "squat-jump", "mountain-climbers", "inchworm"],
+            photo: .shoulders, kcalPerMinute: 11, lowImpact: false
+        ),
+    ]
+
+    static let homeProgramsByID: [String: HomeProgram] = Dictionary(
+        uniqueKeysWithValues: homePrograms.map { ($0.id, $0) }
+    )
+
     // MARK: История
 
     static func makeHistory(
         plan: [WorkoutDay] = weekPlan,
         now: Date = .now,
         calendar: Calendar = .sport,
-        weeks: Int = 26
+        weeks: Int = 26,
+        homePrograms: [HomeProgram] = DemoData.homePrograms
     ) -> [WorkoutSession] {
         var rng = SeededRandom(seed: 20240611)
         let startOfToday = calendar.startOfDay(for: now)
@@ -420,7 +620,62 @@ enum DemoData {
             }
         }
 
+        sessions += makeHomeHistory(
+            programs: homePrograms, now: now, calendar: calendar, weeks: weeks, thisWeekStart: thisWeekStart
+        )
         return sessions.sorted { $0.date > $1.date }
+    }
+
+    /// Домашние тренировки: раз в 1–2 недели. Отдельный генератор, чтобы не менять историю зала.
+    private static func makeHomeHistory(
+        programs: [HomeProgram],
+        now: Date,
+        calendar: Calendar,
+        weeks: Int,
+        thisWeekStart: Date
+    ) -> [WorkoutSession] {
+        guard !programs.isEmpty else { return [] }
+        var rng = SeededRandom(seed: 4242)
+        let startOfToday = calendar.startOfDay(for: now)
+        var sessions: [WorkoutSession] = []
+
+        for weeksAgo in stride(from: weeks - 1, through: 0, by: -1) {
+            let roll = rng.next()
+            guard weeksAgo % 2 == 0 || roll < 0.35 else { continue }
+
+            // Среда вечером или воскресенье.
+            let weekday = roll < 0.5 ? 2 : 6
+            let program = programs[(weeks - weeksAgo + Int(roll * 10)) % programs.count]
+
+            guard let weekStart = calendar.date(byAdding: .weekOfYear, value: -weeksAgo, to: thisWeekStart),
+                  let dayStart = calendar.date(byAdding: .day, value: weekday, to: weekStart),
+                  dayStart < startOfToday,
+                  let date = calendar.date(bySettingHour: 19, minute: 15, second: 0, of: dayStart)
+            else { continue }
+
+            let rounds = max(1, program.rounds - (rng.next() < 0.15 ? 1 : 0))
+            let logged = program.exerciseIDs.map { id in
+                LoggedExercise(
+                    exerciseID: id,
+                    sets: Array(repeating: LoggedSet(value: program.workSeconds, weight: 0), count: rounds),
+                    measureOverride: .seconds
+                )
+            }
+            let minutes = max(8, program.durationMinutes - (rounds < program.rounds ? 6 : 0))
+
+            sessions.append(WorkoutSession(
+                id: UUID(),
+                date: date,
+                title: program.title,
+                focus: "Дома • \(program.goal)",
+                durationMinutes: minutes,
+                calories: Int((Double(minutes) * program.kcalPerMinute).rounded()),
+                photo: program.photo,
+                exercises: logged,
+                location: .home
+            ))
+        }
+        return sessions
     }
 
     static func makeBodyWeight(

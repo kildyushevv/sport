@@ -12,6 +12,8 @@ struct TimerSegment: Equatable {
     /// Номер раунда, начиная с 1.
     let round: Int
     let totalRounds: Int
+    /// Для работы — текущее упражнение, для отдыха и подготовки — следующее.
+    var exerciseID: String? = nil
 }
 
 enum TimerEvent: Equatable {
@@ -31,6 +33,8 @@ final class TimerEngine {
     private(set) var remaining: TimeInterval = 0
     private(set) var isRunning = false
     private(set) var isFinished = false
+    /// Индексы сегментов, дошедших до конца сами (пропущенные кнопкой сюда не попадают).
+    private(set) var completedSegments: Set<Int> = []
 
     @ObservationIgnored var onEvent: ((TimerEvent) -> Void)?
     @ObservationIgnored private var segmentEnd: Date?
@@ -58,6 +62,16 @@ final class TimerEngine {
         segments.reduce(0) { $0 + $1.duration }
     }
 
+    /// Доля пройденного времени всей последовательности (0 → 1).
+    var elapsedFraction: Double {
+        let total = totalDuration
+        guard total > 0 else { return 0 }
+        if isFinished { return 1 }
+        let before = segments.prefix(index).reduce(0) { $0 + $1.duration }
+        let currentDuration = current?.duration ?? 0
+        return min(1, max(0, (before + currentDuration - remaining) / total))
+    }
+
     // MARK: Управление
 
     func load(_ newSegments: [TimerSegment]) {
@@ -65,6 +79,7 @@ final class TimerEngine {
         isFinished = false
         segmentEnd = nil
         lastCountdownSecond = nil
+        completedSegments = []
         segments = newSegments
         index = 0
         remaining = newSegments.first?.duration ?? 0
@@ -121,6 +136,7 @@ final class TimerEngine {
         var left = end.timeIntervalSince(now)
 
         while left <= 0 {
+            completedSegments.insert(index)
             guard index + 1 < segments.count else {
                 finishAll()
                 return
@@ -160,6 +176,48 @@ final class TimerEngine {
             result.append(TimerSegment(kind: .work, duration: TimeInterval(work), round: round, totalRounds: rounds))
             if rest > 0, round < rounds {
                 result.append(TimerSegment(kind: .rest, duration: TimeInterval(rest), round: round, totalRounds: rounds))
+            }
+        }
+        return result
+    }
+
+    /// Круговая тренировка: «Приготовьтесь» → раунды из упражнений (работа → отдых).
+    /// Между раундами отдых `roundRest`, после последней работы отдыха нет.
+    static func circuit(
+        exerciseIDs: [String],
+        work: Int,
+        rest: Int,
+        rounds: Int,
+        roundRest: Int,
+        prepare: Int = 10
+    ) -> [TimerSegment] {
+        guard work > 0, rounds > 0, !exerciseIDs.isEmpty else { return [] }
+
+        var result: [TimerSegment] = []
+        if prepare > 0 {
+            result.append(TimerSegment(
+                kind: .rest, duration: TimeInterval(prepare), round: 1, totalRounds: rounds,
+                exerciseID: exerciseIDs[0]
+            ))
+        }
+
+        for round in 1...rounds {
+            for (position, id) in exerciseIDs.enumerated() {
+                result.append(TimerSegment(
+                    kind: .work, duration: TimeInterval(work), round: round, totalRounds: rounds,
+                    exerciseID: id
+                ))
+
+                let isLastInRound = position == exerciseIDs.count - 1
+                if isLastInRound && round == rounds { continue }
+
+                let pause = isLastInRound ? roundRest : rest
+                guard pause > 0 else { continue }
+                let nextID = isLastInRound ? exerciseIDs[0] : exerciseIDs[position + 1]
+                result.append(TimerSegment(
+                    kind: .rest, duration: TimeInterval(pause), round: round, totalRounds: rounds,
+                    exerciseID: nextID
+                ))
             }
         }
         return result

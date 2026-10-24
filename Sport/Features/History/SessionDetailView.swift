@@ -13,7 +13,11 @@ struct SessionDetailView: View {
                     HStack(spacing: 12) {
                         StatTile(value: "\(session.durationMinutes)", label: "минут", highlighted: true)
                         StatTile(value: "\(session.calories)", label: "ккал")
-                        StatTile(value: Format.number(Analytics.volume(of: session)), label: "объём, кг")
+                        if session.location == .home {
+                            StatTile(value: "\(session.totalSets)", label: "интервалов")
+                        } else {
+                            StatTile(value: Format.number(Analytics.volume(of: session)), label: "объём, кг")
+                        }
                     }
 
                     VStack(alignment: .leading, spacing: 14) {
@@ -85,7 +89,7 @@ private struct ExerciseLogCard: View {
                             .font(.sportNumber(16))
                             .foregroundStyle(Color.sportLime)
                             .frame(width: 28, alignment: .leading)
-                        Text(exercise.measure.format(set.value))
+                        Text((logged.measureOverride ?? exercise.measure).format(set.value))
                             .font(.sportNumber(16))
                             .foregroundStyle(Color.white)
                         Spacer()

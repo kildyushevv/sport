@@ -4,6 +4,7 @@ struct CatalogView: View {
     @Environment(AppStore.self) private var store
     @State private var query = ""
     @State private var group: MuscleGroup? = nil
+    @State private var homeOnly = false
 
     private let columns = [GridItem(.adaptive(minimum: 160), spacing: 12)]
 
@@ -11,11 +12,12 @@ struct CatalogView: View {
         let needle = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         return store.exercises.filter { exercise in
             let matchesGroup = group == nil || exercise.group == group
+            let matchesHome = !homeOnly || exercise.isHomeFriendly
             let matchesQuery = needle.isEmpty
                 || exercise.name.lowercased().contains(needle)
                 || exercise.equipment.lowercased().contains(needle)
                 || exercise.secondary.lowercased().contains(needle)
-            return matchesGroup && matchesQuery
+            return matchesGroup && matchesHome && matchesQuery
         }
     }
 
@@ -80,8 +82,14 @@ struct CatalogView: View {
             HStack(spacing: 8) {
                 Button {
                     group = nil
+                    homeOnly = false
                 } label: {
-                    Chip(title: "Все", isSelected: group == nil)
+                    Chip(title: "Все", isSelected: group == nil && !homeOnly)
+                }
+                Button {
+                    homeOnly.toggle()
+                } label: {
+                    Chip(title: "Без инвентаря", isSelected: homeOnly)
                 }
                 ForEach(MuscleGroup.allCases) { item in
                     Button {
