@@ -144,9 +144,9 @@ struct HomeWorkoutView: View {
 
     @ViewBuilder
     private var exerciseCard: some View {
-        if let exercise = currentExercise, let motion = ExerciseAnimations.motions[exercise.id] {
-            ExerciseAnimationCard(
-                motion: motion,
+        if let exercise = currentExercise, ExerciseDemoCard.isAvailable(exercise.id) {
+            ExerciseDemoCard(
+                exerciseID: exercise.id,
                 eyebrow: isWork ? exercise.group.rawValue : "Дальше",
                 title: exercise.name,
                 height: 240,

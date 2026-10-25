@@ -37,10 +37,10 @@ struct ExerciseDetailView: View {
 
     @ViewBuilder
     private var animation: some View {
-        if let motion = ExerciseAnimations.motions[exercise.id] {
+        if ExerciseDemoCard.isAvailable(exercise.id) {
             VStack(alignment: .leading, spacing: 14) {
                 SectionHeader(title: "Как выполнять")
-                ExerciseAnimationCard(motion: motion, height: 280)
+                ExerciseDemoCard(exerciseID: exercise.id, height: 280)
             }
         }
     }
