@@ -12,6 +12,9 @@ struct ExerciseAnimationView: View {
 
     private let stepSeconds = 1.6
 
+    /// Скорость воспроизведения: 1 — как заданы длительности поз, меньше 1 — медленнее.
+    static let playbackSpeed = 0.65
+
     var body: some View {
         if reduceMotion {
             // Без плавного движения: ключевые позы сменяют друг друга по таймеру.
@@ -22,7 +25,7 @@ struct ExerciseAnimationView: View {
             }
         } else {
             TimelineView(.animation(minimumInterval: nil, paused: !isPlaying)) { context in
-                content(time: context.date.timeIntervalSince(startDate))
+                content(time: context.date.timeIntervalSince(startDate) * Self.playbackSpeed)
             }
         }
     }
