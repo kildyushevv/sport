@@ -38,6 +38,7 @@
 Это медиа Gym visual: MIT-лицензия датасета на него не распространяется, **для публикации
 приложения нужна лицензия у Gym visual** — подробности в `THIRD_PARTY_NOTICES.md`.
 GIF лежат в `Sport/Resources/ExerciseGIFs/`, список — в `Sport/Data/ExerciseGifs.swift`.
+Скорость GIF задаётся константой `ExerciseGifView.gifPlaybackSpeed` (сейчас 1,4; больше — быстрее).
 Обновить или поменять соответствия: правьте `MAPPING` в `tools/import_gifs.py` и запустите
 `python3 tools/import_gifs.py /путь/к/exercises-dataset`.
 

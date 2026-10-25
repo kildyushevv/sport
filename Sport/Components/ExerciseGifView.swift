@@ -6,6 +6,9 @@ struct ExerciseGifView: View {
     let animation: GifAnimation
     var isPlaying = true
 
+    /// Скорость воспроизведения GIF: 1 — как в исходнике, больше 1 — быстрее.
+    static let gifPlaybackSpeed = 1.4
+
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var startDate = Date()
 
@@ -15,7 +18,8 @@ struct ExerciseGifView: View {
             frame(at: animation.frames.count / 2)
         } else {
             TimelineView(.animation(minimumInterval: 1.0 / 30.0, paused: !isPlaying)) { context in
-                frame(at: animation.frameIndex(at: context.date.timeIntervalSince(startDate)))
+                let elapsed = context.date.timeIntervalSince(startDate) * Self.gifPlaybackSpeed
+                frame(at: animation.frameIndex(at: elapsed))
             }
         }
     }
